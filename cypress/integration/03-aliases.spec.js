@@ -83,11 +83,12 @@ describe('Aliases', () => {
 
   describe('Mark individual item as packed', () => {
     it('should move an individual item from "Unpacked" to "Packed"', () => {
-        cy.get('@unpacked-items').find('li input').first().then(item => {
-            const id = item.attr('id');
-            cy.wrap(item).click();
-            cy.get('@packed-items').find(`#${id}`);
-        });
+        cy.get('@unpacked-items').find('label').first().as('item-label');
+        cy.get('@item-label').invoke('text').as('item-name');
+        cy.get('@item-label').click();
+        cy.get('@item-name').then((text) => {
+            cy.get('@packed-items').contains(text);
+        })
     });
   });
 });
