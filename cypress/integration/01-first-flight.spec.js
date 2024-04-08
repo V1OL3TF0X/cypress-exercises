@@ -1,3 +1,17 @@
 /// <reference types="cypress" />
 
-describe('Create a New Item', () => {});
+describe('Create a New Item', () => {
+    beforeEach(() => {
+        cy.visit('/jetsetter');
+    })
+
+    it('should have a form', () => {
+        cy.get('form');
+    });
+    it('should have the words "Add Item"', () => {
+        cy.contains('Add Item');
+    });
+    it('should put stuff in a new item input', () => {
+        cy.get('[data-test="new-item-input"]').type('Good attitude')
+    });
+});
