@@ -43,17 +43,20 @@ describe('Secret Menu Items', () => {
         it(`should have a column for ${property}`, () => {
             cy.get(`#${property}-column`);
         });
+
         it(`should hide ${property} column when unchecked`, () => {
             cy.get(`#show-${property}`).uncheck();
             cy.get(`#${property}-column`).should('be.hidden')
         });
     }
 });
+
 describe('Restaurant filter', () => {
     beforeEach(() => {
         cy.visit('/secret-menu');
         cy.get('#restaurant-visibility-filter').as('restaurant-filter')
-    })
+    });
+
     for (const restaurant of restaurants) {
         it(`should only show items from ${restaurant} when it's selected`, () => {
             cy.get('@restaurant-filter').select(restaurant);
@@ -63,11 +66,13 @@ describe('Restaurant filter', () => {
         });
     }
 });
+
 describe('Rating filter', () => {
     beforeEach(() => {
         cy.visit('/secret-menu');
         cy.get('#minimum-rating-visibility').as('rating-filter')
-    })
+    });
+
     for (const rating of ratings) {
         it(`should only show items above or equal to ${rating} when it's selected as minimum rating`, () => {
             cy.get('@rating-filter').invoke('val', rating).trigger('input');
